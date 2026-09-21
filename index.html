@@ -1,0 +1,1252 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Holfkings | Automatización con Python en Colombia</title>
+
+  <meta name="description" content="Scripts y mini-apps en Python para automatizar procesos, extraer datos web y ordenar información. Primera consulta sin costo. Holfkings, Colombia.">
+
+  <meta name="robots" content="index, follow">
+
+  <meta name="theme-color" content="#101414">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://holfkings.example.com">
+  <meta property="og:title" content="Holfkings | Automatización con Python">
+  <meta property="og:description" content="Scripts y mini-apps para quitarle trabajo repetitivo a tu día. Primera consulta sin costo.">
+  <meta property="og:image" content="https://holfkings.example.com/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:locale" content="es_CO">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Holfkings | Automatización con Python">
+  <meta name="twitter:description" content="Scripts y mini-apps para quitarle trabajo repetitivo a tu día. Primera consulta sin costo.">
+  <meta name="twitter:image" content="https://holfkings.example.com/og-image.jpg">
+
+  <link rel="canonical" href="https://holfkings.example.com">
+
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>">
+
+  <style>
+    :root {
+      --bg: #101414;
+      --bg-elevated: #161c1a;
+      --bg-surface: #18201d;
+      --paper: #f3f2ec;
+      --paper-soft: #d4d8d4;
+      --muted: #aab3ad;
+      --muted-dark: #53615b;
+      --accent: #d9ff35;
+      --accent-border: rgba(217, 255, 53, 0.4);
+      --line: rgba(243, 242, 236, 0.12);
+      --line-strong: rgba(243, 242, 236, 0.22);
+      --max-width: 1120px;
+      --radius: 14px;
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+        "Helvetica Neue", Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--paper);
+      line-height: 1.6;
+      font-size: 1rem;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    ::selection {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; height: auto; display: block; }
+    button {
+      font: inherit;
+      color: inherit;
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 3px;
+      border-radius: 2px;
+    }
+
+    :focus:not(:focus-visible) { outline: none; }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      .reveal, .slide-up { animation: none !important; opacity: 1 !important; transform: none !important; }
+      .service-card, .cta-link, .faq-answer { transition: none !important; }
+    }
+
+    .container {
+      width: 100%;
+      max-width: var(--max-width);
+      margin-inline: auto;
+      padding-inline: 1.25rem;
+    }
+
+    @media (min-width: 640px) {
+      .container { padding-inline: 1.75rem; }
+    }
+
+    .mono {
+      font-family: "SF Mono", "Cascadia Code", "Consolas", "Liberation Mono",
+        Menlo, monospace;
+      font-feature-settings: "tnum" 1;
+    }
+
+    .section-label {
+      font-size: 0.6875rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .section-label::before {
+      content: "";
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-inline-end: 0.5rem;
+      box-shadow: 0 0 16px rgba(217, 255, 53, 0.7);
+      vertical-align: middle;
+    }
+
+    .glass-surface {
+      background: var(--bg-surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero__bg::before,
+    .hero__bg::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 255, 53, 0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__bg::before { width: 600px; height: 600px; top: -200px; right: -100px; }
+    .hero__bg::after { width: 400px; height: 400px; bottom: -100px; left: -80px; }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(16px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .reveal {
+      animation: slideUp 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+    }
+
+    .reveal-delay-1 { animation-delay: 0.1s; }
+    .reveal-delay-2 { animation-delay: 0.2s; }
+    .reveal-delay-3 { animation-delay: 0.3s; }
+
+    /* HEADER */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(16, 20, 20, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .site-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 700;
+      font-size: 1.125rem;
+      letter-spacing: -0.02em;
+    }
+
+    .brand__marker {
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border-radius: 2px;
+      box-shadow: 0 0 18px rgba(217, 255, 53, 0.8);
+      flex-shrink: 0;
+    }
+
+    .brand__tag {
+      font-size: 0.625rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 1px;
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 0.875rem;
+      padding: 0.5rem 0.875rem;
+      border-radius: 999px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .header-cta:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(217, 255, 53, 0.25);
+    }
+
+    .header-cta svg { width: 16px; height: 16px; flex-shrink: 0; }
+
+    @media (max-width: 480px) {
+      .header-cta span { display: none; }
+      .header-cta { padding: 0.5rem 0.625rem; }
+    }
+
+    /* HERO */
+    .hero {
+      position: relative;
+      padding: 4rem 0 3.5rem;
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .hero__bg {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+      background-size: 48px 48px;
+      mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 40%, black 30%, transparent 100%);
+      pointer-events: none;
+    }
+
+    .hero__bg::before,
+    .hero__bg::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(217, 255, 53, 0.06), transparent 70%);
+      pointer-events: none;
+    }
+
+    .hero__bg::before { width: 600px; height: 600px; top: -200px; right: -100px; }
+    .hero__bg::after { width: 400px; height: 400px; bottom: -100px; left: -80px; }
+
+    .hero__content { position: relative; z-index: 1; }
+
+    .hero__eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .hero__title {
+      font-size: clamp(2rem, 5.5vw, 3.5rem);
+      font-weight: 800;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      max-width: 18ch;
+      margin-bottom: 1rem;
+    }
+
+    .hero__subtitle {
+      font-size: 1.05rem;
+      color: var(--paper-soft);
+      max-width: 36ch;
+      line-height: 1.65;
+      margin-bottom: 1.75rem;
+    }
+
+    .hero__actions {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--accent);
+      color: var(--bg);
+      font-weight: 700;
+      font-size: 0.95rem;
+      padding: 0.875rem 1.5rem;
+      border-radius: 999px;
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+      will-change: transform;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 28px rgba(217, 255, 53, 0.22);
+    }
+
+    .btn-primary svg { width: 18px; height: 18px; transition: transform 0.2s ease; }
+    .btn-primary:hover svg { transform: translate(2px, -2px); }
+
+    .hero__note {
+      font-size: 0.625rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* BENEFICIOS */
+    .benefits {
+      background: var(--bg-elevated);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .benefits__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    @media (min-width: 640px) {
+      .benefits__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (min-width: 768px) {
+      .benefits__grid { grid-template-columns: repeat(4, 1fr); }
+    }
+
+    .benefit-item {
+      padding: 1.5rem 1rem;
+      border-inline-end: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .benefit-item:last-child { border-inline-end: none; }
+
+    @media (min-width: 768px) {
+      .benefit-item { border-bottom: none; }
+      .benefit-item:nth-child(2n) { border-inline-end: none; }
+    }
+
+    .benefit-item__number { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+    .benefit-item__text { margin-top: 0.5rem; font-size: 0.95rem; font-weight: 500; line-height: 1.4; }
+
+    /* SERVICIOS */
+    .services {
+      padding: 4rem 0 3rem;
+    }
+
+    .services__header {
+      display: grid;
+      gap: 0.75rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 2rem;
+    }
+
+    @media (min-width: 768px) {
+      .services__header {
+        grid-template-columns: 1fr 1.6fr;
+        align-items: end;
+        gap: 1.5rem;
+      }
+    }
+
+    .services__title {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      max-width: 20ch;
+    }
+
+    .services__intro {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 32ch;
+      line-height: 1.6;
+    }
+
+    .services__grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+
+    @media (min-width: 640px) {
+      .services__grid { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    .service-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+    }
+
+    .service-card:hover,
+    .service-card:focus-within {
+      transform: translateY(-4px);
+      border-color: var(--accent-border);
+      background: rgba(255, 255, 255, 0.04);
+    }
+
+    .service-card__index {
+      font-size: 0.6875rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+
+    .service-card__title {
+      margin-top: 0.75rem;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.025em;
+      line-height: 1.2;
+    }
+
+    .service-card__body {
+      margin-top: 0.6rem;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.6;
+    }
+
+    .service-card__fit {
+      margin-top: 1rem;
+      padding-top: 0.875rem;
+      border-top: 1px solid var(--line);
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--paper);
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 1.5rem;
+      bottom: 1.5rem;
+      width: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .service-card:hover::before,
+    .service-card:focus-within::before { opacity: 1; }
+
+    .service-card {
+      position: relative;
+      padding-inline-start: 1rem;
+    }
+
+    /* POR QUÉ ELIGIRNOS */
+    .why-us {
+      background: var(--bg-elevated);
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      padding: 4rem 0;
+    }
+
+    .why-us__grid {
+      display: grid;
+      gap: 2.5rem;
+    }
+
+    @media (min-width: 768px) {
+      .why-us__grid { grid-template-columns: 0.9fr 1.1fr; gap: 3rem; }
+    }
+
+    .why-us__title {
+      margin-top: 0.75rem;
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      line-height: 1.1;
+      max-width: 22ch;
+    }
+
+    .why-us__steps {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      padding-inline-start: 1.5rem;
+    }
+
+    .why-us__steps::before {
+      content: "";
+      position: absolute;
+      left: 4.25rem;
+      top: 0;
+      bottom: 0;
+      width: 2px;
+      background: linear-gradient(var(--line-strong), var(--line));
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 4.5rem 1fr;
+      gap: 1rem;
+      padding-block: 1.25rem;
+      border-top: 1px solid var(--line);
+    }
+
+    .step:last-child { border-bottom: 1px solid var(--line); }
+
+    .step__number {
+      font-size: 0.875rem;
+      color: var(--muted-dark);
+      font-weight: 600;
+      text-align: center;
+      padding-block: 0.25rem;
+    }
+
+    .step__title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      margin-bottom: 0.3rem;
+    }
+
+    .step__body {
+      color: var(--muted-dark);
+      font-size: 0.95rem;
+      line-height: 1.6;
+      max-width: 40ch;
+    }
+
+    @media (max-width: 480px) {
+      .why-us__steps::before { left: 2rem; }
+      .step { grid-template-columns: 2.5rem 1fr; }
+      .step__number { font-size: 0.75rem; }
+    }
+
+    /* FAQ */
+    .faq {
+      padding: 4rem 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq__header { max-width: 24ch; margin-bottom: 2rem; }
+
+    .faq__title {
+      margin-top: 0.5rem;
+      font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+    }
+
+    .faq__list {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      border-top: 1px solid var(--line);
+    }
+
+    .faq-item {
+      border-bottom: 1px solid var(--line);
+    }
+
+    .faq-question {
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      padding: 1.1rem 0;
+      text-align: left;
+      font-size: 1rem;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      line-height: 1.4;
+      color: var(--paper);
+    }
+
+    .faq-question:hover { color: var(--accent); }
+
+    .faq-question svg {
+      width: 20px;
+      height: 20px;
+      flex-shrink: 0;
+      color: var(--muted);
+      transition: transform 0.25s ease, color 0.25s ease;
+    }
+
+    .faq-item[open] .faq-question svg {
+      transform: rotate(45deg);
+      color: var(--accent);
+    }
+
+    .faq-answer {
+      padding-bottom: 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.65;
+      max-width: 40ch;
+      overflow: hidden;
+      transition: max-height 0.3s ease, opacity 0.25s ease;
+    }
+
+    .faq-answer p { margin-bottom: 0.5rem; }
+    .faq-answer p:last-child { margin-bottom: 0; }
+
+    .faq-answer {
+      max-height: 0;
+      opacity: 0;
+    }
+
+    .faq-item[open] .faq-answer {
+      max-height: 500px;
+      opacity: 1;
+      padding-bottom: 1.25rem;
+    }
+
+    /* CTA FINAL */
+    .final-cta {
+      position: relative;
+      overflow: hidden;
+      background: var(--bg-surface);
+      border: 1px solid var(--accent-border);
+      border-radius: var(--radius);
+      padding: 3rem 1.5rem;
+      text-align: center;
+    }
+
+    @media (min-width: 768px) {
+      .final-cta { padding: 4rem 2.5rem; }
+    }
+
+    .final-cta::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 120px;
+      height: 120px;
+      background: radial-gradient(circle at 100% 0%, rgba(217, 255, 53, 0.12), transparent 70%);
+      pointer-events: none;
+    }
+
+    .final-cta__title {
+      margin-top: 0.75rem;
+      font-size: clamp(1.5rem, 4vw, 2.4rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.15;
+      max-width: 20ch;
+      margin-inline: auto;
+    }
+
+    .final-cta__body {
+      margin-top: 0.875rem;
+      color: var(--paper-soft);
+      font-size: 1rem;
+      max-width: 30ch;
+      margin-inline: auto;
+      line-height: 1.6;
+    }
+
+    .final-cta .btn-primary { margin-top: 1.5rem; }
+
+    /* FOOTER */
+    .site-footer {
+      border-top: 1px solid var(--line);
+      padding: 1.5rem 0;
+    }
+
+    .site-footer__inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      align-items: flex-start;
+    }
+
+    @media (min-width: 640px) {
+      .site-footer__inner {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    .site-footer__brand { font-weight: 700; font-size: 1rem; }
+
+    .site-footer__tag {
+      font-size: 0.625rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .site-footer__legal {
+      font-size: 0.75rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    .site-footer__legal a {
+      color: var(--paper-soft);
+      text-decoration: underline;
+      text-underline-offset: 2px;
+    }
+
+    .site-footer__legal a:hover { color: var(--accent); }
+
+    @media (max-width: 380px) {
+      .hero__actions { flex-direction: column; align-items: stretch; }
+      .hero__actions .btn-primary { justify-content: center; }
+      .hero__note { text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header" role="banner">
+    <div class="container site-header__inner">
+      <a href="#inicio" class="brand" aria-label="Ir al inicio de Holfkings">
+        <span class="brand__marker" aria-hidden="true"></span>
+        <span class="brand__name">Holfkings</span>
+        <span class="brand__tag">Python · Colombia</span>
+      </a>
+      <a href="https://wa.me/573155576332?text=Hola%20Holfkings%2C%20quiero%20revisar%20un%20proceso%20que%20hago%20manualmente."
+         class="header-cta"
+         target="_blank"
+         rel="noopener noreferrer"
+         aria-label="Escribir por WhatsApp">
+        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475s-2.142-2.057-2.39-1.475c-.297.15-.471.126-.644-.075-.173-.198-.767-.866-.94-1.164-.2-.298-.398-.249-.67-.15-1.228.508-1.758 1.226-2.03 1.226-.273 0-.471-.05-.67-.15C4.746 9.65 4 8.773 3.703 8.37c-.297-.298-.3-1.026-.002-1.324.297-.297 1.026-.3 1.324-.002.297.298.3 1.026.002 1.324.472.199.875.3 1.373.3C7.213 8 8.051 7.75 8.5 7.549c.448-.201 1.228-.637 2.03-.967.297-.149.471-.124.67.15.197.297.768.966.94 1.164.173.198.347.223.644.075.297-.15 1.255-.463 2.39-1.475s2.142-2.057 2.39-1.475c.297.15.471.126.644-.075.173-.198.767-.866.94-1.164.2-.298.398-.249.67-.15 1.228.508 1.758 1.226 2.03 1.226.273 0 .471-.05.67-.15.597-.472 1.026-1.226 1.026-1.226s.428-.3-.67-.15c-.297.149-1.758.867-2.03.967-.273.099-.471.148-.67-.15C4.746 6.35 4 7.227 3.703 7.63c-.297.298-.3 1.026-.002 1.324.297.297 1.026.3 1.324.002.297-.298.3-1.026.002-1.324.472-.199.875-.3 1.373-.3 1.372 0 1.756.5 2.399 1.324.643.824 1.06 1.757 1.257 2.4C19.215 15.627 19.86 16 20.286 16c.426 0 .87-.15 1.37-.45C21.834 15.4 22 14.65 22 14.03c0-.62-.233-1.27-.585-1.77-.352-.5-1.215-.85-1.712-.99-.24-.06-.484.02-.662.194-.178.174-.526.525-.89.74C17.602 13.1 17.2 13.4 17.2 13.4s.428.3.67.15c.248-.14.496-.384.74-.524.248-.14.484-.22.662-.195.497.14.98.49.98.49s.415-.207.793-.368c.3-.126.642-.06.882.16.24.22.384.48.384.84 0 .36-.24.62-.585.77C22 13.35 21.834 14.1 21.43 14.5c-.398.205-.87.355-1.373.355-1.372 0-1.756-.5-2.399-1.325-.643-.824-1.06-1.757-1.257-2.4C14.788 11.8 14.2 11 13.75 10.5c-.448-.5-.874-1-1.257-1.5-.297-.298-.3-1.026-.002-1.324.297-.297 1.026-.3 1.324-.002.297.298.3 1.026.002 1.324.472.199.875.3 1.373.3C16.79 11 17.628 10.75 18.077 10.549c.448-.201 1.228-.637 2.03-.967.297-.149.471-.124.67.15.197.297.768.966.94 1.164.173.198.347.223.644.075.297-.15 1.255-.463 2.39-1.475s2.142-2.057 2.39-1.475c.297.15.471.126.644-.075.173-.198.767-.866.94-1.164.2-.298.398-.249.67-.15C22.5 7.85 22.5 7.85 22.228 7.349c.597-.472 1.026-1.226 1.026-1.226s.128-.14-.67-.45c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67-.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644-.075-.297.15-1.255.463-2.39 1.475s-2.142 2.057-2.39 1.475c-.297-.15-.471-.126-.644.075-.173.198-.767.866-.94 1.164-.2.298-.398.249-.67.15-1.228-.508-1.758-1.226-2.03-1.226-.273 0-.471.05-.67.15C4.746 6.35 4 7.227 3.703 7.63c-.297.298-.3 1.026-.002 1.324.297.297 1.026.3 1.324.002.297-.298.3-1.026.002-1.324.472-.199.875-.3 1.373-.3 1.372 0 1.756.5 2.399 1.324.643.824 1.06 1.757 1.257 2.4C14.788 11.8 14.2 11 13.75 10.5c-.448-.5-.874-1-1.257-1.5-.297-.298-.3-1.026-.002-1.324.297-.297 1.026-.3 1.324-.002.297.298.3 1.026.002 1.324.472.199.875.3 1.373.3C16.79 11 17.628 10.75 18.077 10.549c.448-.201 1.228-.637 2.03-.967.297-.149.471-.124.67.15.197.297.768.966.94 1.164.173.198.347.223.644.075.297-.15 1.255-.463 2.39-1.475s2.142-2.057 2.39-1.475c.297.15.471.126.644-.075.173-.198.767-.866.94-1.164.2-.298.398-.249.67-.15C22.5 7.85 22.5 7.85 22.228 7.349c.597-.472 1.026-1.226 1.026-1.226s.128-.14-.67-.45c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67-.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075.248.14.496.384.74.524.248.14.484.22.662.195.497-.14-.283-.794-.283-.794z"/>
+        </svg>
+        <span>Escribir por WhatsApp</span>
+      </a>
+    </div>
+  </header>
+
+  <main>
+    <section id="inicio" class="hero" aria-labelledby="hero-title">
+      <div class="hero__bg" aria-hidden="true"></div>
+      <div class="container hero__content">
+        <div class="hero__eyebrow reveal">
+          <span class="section-label">Automatización útil para negocios reales</span>
+        </div>
+        <h1 id="hero-title" class="hero__title reveal reveal-delay-1">
+          Dejá de hacer a mano lo que Python puede hacer automáticamente.
+        </h1>
+        <p class="hero__subtitle reveal reveal-delay-2">
+          Scripts y pequeñas herramientas web para recuperar tiempo,
+          ordenar datos y quitarle trabajo repetitivo a tu día.
+        </p>
+        <div class="hero__actions reveal reveal-delay-3">
+          <a href="https://wa.me/573155576332?text=Hola%20Holfkings%2C%20quiero%20saber%20si%20mi%20proceso%20se%20puede%20automatizar."
+             class="btn-primary"
+             target="_blank"
+             rel="noopener noreferrer"
+             aria-label="Escribir por WhatsApp para consultar">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+            </svg>
+            Hablemos por WhatsApp
+          </a>
+          <p class="hero__note">Primera consulta sin costo</p>
+        </div>
+      </div>
+    </section>
+
+    <aside class="benefits" aria-label="Ventajas de trabajar con Holfkings">
+      <div class="container">
+        <div class="benefits__grid">
+          <div class="benefit-item">
+            <p class="benefit-item__number mono">01</p>
+            <p class="benefit-item__text">Consulta inicial sin costo</p>
+          </div>
+          <div class="benefit-item">
+            <p class="benefit-item__number mono">02</p>
+            <p class="benefit-item__text">Precios claros en pesos colombianos</p>
+          </div>
+          <div class="benefit-item">
+            <p class="benefit-item__number mono">03</p>
+            <p class="benefit-item__text">Entrega funcional desde el día uno</p>
+          </div>
+          <div class="benefit-item">
+            <p class="benefit-item__number mono">04</p>
+            <p class="benefit-item__text">Herramientas simples y honestas</p>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <section id="servicios" class="services" aria-labelledby="services-title">
+      <div class="container">
+        <div class="services__header">
+          <p class="section-label services__kicker reveal">Lo que puedo resolver</p>
+          <div class="services__header-text">
+            <h2 id="services-title" class="services__title reveal reveal-delay-1">
+              Menos trabajo repetitivo. Más tiempo para tu negocio.
+            </h2>
+            <p class="services__intro reveal reveal-delay-2">
+              No vendo tecnología por venderla. Construyo soluciones
+              concretas para procesos que hoy te consumen horas.
+            </p>
+          </div>
+        </div>
+
+        <div class="services__grid">
+          <article class="service-card reveal" tabindex="0">
+            <p class="service-card__index">01 / Python</p>
+            <h3 class="service-card__title">Automatización de procesos</h3>
+            <p class="service-card__body">
+              Scripts que procesan archivos, envían reportes, organizan
+              datos y mueven información entre tareas que hoy hacés a mano.
+            </p>
+            <p class="service-card__fit">
+              Ideal si repetís la misma tarea varias veces por semana.
+            </p>
+          </article>
+
+          <article class="service-card reveal reveal-delay-1" tabindex="0">
+            <p class="service-card__index">02 / Datos</p>
+            <h3 class="service-card__title">Extracción de datos web</h3>
+            <p class="service-card__body">
+              Información de sitios web entregada en Excel o CSV: precios,
+              listados y datos de interés, limpios y listos para usar.
+            </p>
+            <p class="service-card__fit">
+              Ideal si copiás datos externos manualmente.
+            </p>
+          </article>
+
+          <article class="service-card reveal reveal-delay-2" tabindex="0">
+            <p class="service-card__index">03 / Orden</p>
+            <h3 class="service-card__title">Limpieza y organización de datos</h3>
+            <p class="service-card__body">
+              Transformo archivos Excel o CSV con duplicados, errores y
+              formatos inconsistentes en información lista para reportes
+              o análisis.
+            </p>
+            <p class="service-card__fit">
+              Ideal si tenés datos guardados, pero sin orden usable.
+            </p>
+          </article>
+
+          <article class="service-card reveal reveal-delay-3" tabindex="0">
+            <p class="service-card__index">04 / Web</p>
+            <h3 class="service-card__title">Mini-apps web</h3>
+            <p class="service-card__body">
+              Dashboards, registros simples y formularios para gestionar
+              información sin pagar por un sistema grande o innecesario.
+            </p>
+            <p class="service-card__fit">
+              Ideal si Excel ya se te quedó pequeño.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="por-que-elegirnos" class="why-us" aria-labelledby="why-title">
+      <div class="container">
+        <div class="why-us__grid">
+          <div>
+            <p class="section-label why-us__kicker reveal">Sin promesas infladas</p>
+            <h2 id="why-title" class="why-us__title reveal reveal-delay-1">
+              Tecnología suficiente para resolver el problema. Nada más.
+            </h2>
+          </div>
+          <div class="why-us__steps">
+            <div class="step reveal">
+              <p class="step__number mono">01</p>
+              <div>
+                <h3 class="step__title">Entendemos el cuello de botella</h3>
+                <p class="step__body">
+                  Revisamos tu proceso antes de hablar de precio. Si no se
+                  puede automatizar de forma útil, te lo digo.
+                </p>
+              </div>
+            </div>
+            <div class="step reveal reveal-delay-1">
+              <p class="step__number mono">02</p>
+              <div>
+                <h3 class="step__title">Propuesta clara en pesos colombianos</h3>
+                <p class="step__body">
+                  Sabés qué se entrega, cuánto cuesta y para qué sirve.
+                  Sin facturas sorpresa en dólares.
+                </p>
+              </div>
+            </div>
+            <div class="step reveal reveal-delay-2">
+              <p class="step__number mono">03</p>
+              <div>
+                <h3 class="step__title">Entrega que podés usar</h3>
+                <p class="step__body">
+                  Trabajo con Python, SQLite y HTML/CSS: un stack honesto
+                  para soluciones funcionales, sin sobrecomplicar.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="faq" class="faq" aria-labelledby="faq-title">
+      <div class="container">
+        <div class="faq__header">
+          <p class="section-label reveal">Preguntas frecuentes</p>
+          <h2 id="faq-title" class="faq__title reveal reveal-delay-1">
+            Lo que suelo preguntarme antes de escribir.
+          </h2>
+        </div>
+
+        <div class="faq__list">
+          <details class="faq-item reveal">
+            <summary class="faq-question" role="button" aria-expanded="false">
+              ¿Qué es exactamente la automatización con Python?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Python es un lenguaje de programación. Te escribo scripts
+                que hacen tareas repetitivas por ti: procesar archivos,
+                enviar reportes, mover datos entre pestañas, extraer
+                información de la web.
+              </p>
+              <p>
+                No es magia ni inteligencia artificial. Es código que
+                ejecuta lo que vos ya hacés, pero sin que estés presente.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal reveal-delay-1">
+            <summary class="faq-question" role="button" aria-expanded="false">
+              ¿Qué tipo de procesos se pueden automatizar?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Cosas que haces varias veces por semana y que consumen
+                tu tiempo: copiar datos de un lugar a otro, organizar
+                Excel, generar reportes, extraer precios de páginas web,
+                enviar mensajes o correos con información actualizada.
+              </p>
+              <p>
+                Si es algo que podés describir en un par de minutos y
+                que hacés manualmente, probablemente se pueda automatizar.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal reveal-delay-2">
+            <summary class="faq-question" role="button" aria-expanded="false">
+              ¿Cuánto tarda un script en hacerse?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Depende de la complejidad. Un script simple para procesar
+                archivos puede tardar un par de días. Algo que conecta
+                varias fuentes o requiere manejo de errores, más.
+              </p>
+              <p>
+                En la primera consulta te doy una idea realista del
+                tiempo y del costo.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal reveal-delay-3">
+            <summary class="faq-question" role="button" aria-expanded="false">
+              ¿Necesito saber programar para usarlo?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                No. Te entrego algo que funciona. Si es un script,
+                te explico cómo ejecutarlo. Si es una mini-app web,
+                te paso un link y ahí está.
+              </p>
+              <p>
+                Si algo se rompe o quieres cambiar algo después,
+                me pedís y lo ajusto.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal">
+            <summary class="faq-question" role="button" aria-expanded="false">
+              ¿El código es mío al final?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Sí. Todo lo que entrego es tuyo. Puedes pedir el código
+                fuente y modificarlo después si querés, o tenerlo como
+                respaldo.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal reveal-delay-1">
+            <summary class="faq-question" role="button" aria-expanded="false">
+              ¿Qué formatos de archivo maneja?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Principalmente Excel (.xlsx, .csv) y texto plano.
+                También puedo conectar con bases de datos SQLite,
+                APIs simples y algunos servicios web populares.
+              </p>
+              <p>
+                Si tenés datos en otro formato, preguntame antes y
+                vemos si se puede.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal reveal-delay-2">
+            <summary class="faq-question" role="button" aria-expanded="false">
+              ¿Puedo ver un ejemplo antes de pagar?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Sí. La primera consulta es sin costo. Me contas el
+                proceso, te digo si se puede automatizar y cómo sería.
+                Sin compromiso.
+              </p>
+              <p>
+                Dependiendo del caso, puedo mostrarte un demo rápido
+                con tus propios datos si los compartís de forma segura.
+              </p>
+            </div>
+          </details>
+
+          <details class="faq-item reveal reveal-delay-3">
+            <summary class="faq-question" role="button" aria-expanded="false">
+              ¿Qué pasa si el script necesita cambios después?
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <line x1="12" y1="5" x2="12" y2="19"/>
+                <line x1="5" y1="12" x2="19" y2="12"/>
+              </svg>
+            </summary>
+            <div class="faq-answer">
+              <p>
+                Los scripts que entrego incluyen ajustes menores sin
+                costo por un periodo después de la entrega.
+              </p>
+              <p>
+                Cambios grandes o nuevas funcionalidades se cotizan
+                aparte, con precio claro antes de empezar.
+              </p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto" class="final-cta" aria-labelledby="final-cta-title">
+      <div class="container">
+        <p class="section-label final-cta__kicker reveal">Empecemos por el problema</p>
+        <h2 id="final-cta-title" class="final-cta__title reveal reveal-delay-1">
+          Contame qué hacés una y otra vez. Veamos si podemos quitártelo de encima.
+        </h2>
+        <p class="final-cta__body reveal reveal-delay-2">
+          La primera conversación no tiene costo. Me explicás el proceso,
+          revisamos si es automatizable y te doy una respuesta clara.
+        </p>
+        <a href="https://wa.me/573155576332?text=Hola%20Holfkings%2C%20me%20interesa%20revisar%20un%20proceso%20que%20hago%20manualmente."
+           class="btn-primary reveal reveal-delay-3"
+           target="_blank"
+           rel="noopener noreferrer"
+           aria-label="Escribir por WhatsApp para iniciar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Escribir por WhatsApp
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer" role="contentinfo">
+    <div class="container site-footer__inner">
+      <div>
+        <p class="site-footer__brand">Holfkings</p>
+        <p class="site-footer__tag">Automatización con Python · Colombia</p>
+      </div>
+      <p class="site-footer__legal">
+        Contacto:
+        <a href="https://wa.me/573155576332" target="_blank" rel="noopener noreferrer">
+          WhatsApp +57 315 557 6332
+        </a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      "use strict";
+
+      var prefersReducedMotion = window.matchMedia(
+        "(prefers-reduced-motion: reduce)"
+      ).matches;
+
+      if (!prefersReducedMotion) {
+        var revealElements = document.querySelectorAll(".reveal");
+
+        if ("IntersectionObserver" in window) {
+          var observer = new IntersectionObserver(
+            function (entries) {
+              entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("in-view");
+                  observer.unobserve(entry.target);
+                }
+              });
+            },
+            {
+              rootMargin: "0px 0px -80px 0px",
+              threshold: 0.1,
+            }
+          );
+
+          revealElements.forEach(function (el) {
+            observer.observe(el);
+          });
+        } else {
+          revealElements.forEach(function (el) {
+            el.style.opacity = "1";
+          });
+        }
+
+        var style = document.createElement("style");
+        style.textContent =
+          ".reveal.in-view { animation: none; opacity: 1; transform: none; }";
+        document.head.appendChild(style);
+      }
+
+      var faqItems = document.querySelectorAll(".faq-item");
+
+      faqItems.forEach(function (item) {
+        var summary = item.querySelector("summary");
+        var answer = item.querySelector(".faq-answer");
+
+        if (!summary || !answer) return;
+
+        var wasAlreadyOpen = item.hasAttribute("open");
+        summary.setAttribute(
+          "aria-expanded",
+          wasAlreadyOpen ? "true" : "false"
+        );
+
+        item.addEventListener("toggle", function () {
+          var isOpen = item.hasAttribute("open");
+          summary.setAttribute("aria-expanded", isOpen ? "true" : "false");
+        });
+      });
+
+      faqItems.forEach(function (item) {
+        if (item.hasAttribute("open")) {
+          var answer = item.querySelector(".faq-answer");
+          if (answer) {
+            answer.style.maxHeight = answer.scrollHeight + "px";
+          }
+        }
+      });
+
+      if ("ResizeObserver" in window && !prefersReducedMotion) {
+        var ro = new ResizeObserver(function () {
+          faqItems.forEach(function (item) {
+            if (item.hasAttribute("open")) {
+              var answer = item.querySelector(".faq-answer");
+              if (answer) {
+                answer.style.maxHeight = answer.scrollHeight + "px";
+              }
+            }
+          });
+        });
+        faqItems.forEach(function (item) {
+          var answer = item.querySelector(".faq-answer");
+          if (answer) ro.observe(answer);
+        });
+      }
+    })();
+  </script>
+</body>
+</html>
